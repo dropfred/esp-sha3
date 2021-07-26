@@ -62,6 +62,7 @@ namespace
 #elif (SHA3_TRANSPOSE == SHA3_TRANSPOSE_INPUT)
 	std::size_t transpose(std::size_t i)
 	{
+        // it appears that gcc doesn't optimize div(x, 8), manually use and/shift instead
 		auto qr = std::div(int(i >> 3), 5);
 		return (((qr.rem * 5) + qr.quot) * 8 + (i & 7));
 	}
@@ -180,11 +181,11 @@ namespace
 		sha.block = (5 * 5 * 8) - (2 * digest_size);
 	}
 
-	void update(sha3 & sha, const std::uint8_t * input, std::size_t ilen)
+	void update(sha3 & sha, const std::uint8_t * input, std::size_t size)
 	{
 		auto * state = reinterpret_cast<std::uint8_t *>(sha.state);
 
-		for(std::uint32_t i = 0; i < ilen; i++)
+		for(std::uint32_t i = 0; i < size; i++)
 		{
 #if (SHA3_TRANSPOSE == SHA3_TRANSPOSE_INPUT)
 			state[transpose(sha.index++)] ^= input[i];
