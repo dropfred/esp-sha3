@@ -74,17 +74,17 @@ namespace
     }
 
 #if (SHA3_TRANSPOSE == SHA3_TRANSPOSE_NONE)
-    void keccak_round(std::uint64_t state[5][5], std::uint64_t RC)
+    void keccak_round(std::uint64_t state[5][5], std::uint64_t rc)
     {
-        std::uint64_t BCD[5][5];
+        std::uint64_t bcd[5][5];
         /* theta */
         for (std::size_t x = 0; x < 5; ++x)
         {
-            BCD[0][x] = state[0][x] ^ state[1][x] ^ state[2][x] ^ state[3][x] ^ state[4][x];
+            bcd[0][x] = state[0][x] ^ state[1][x] ^ state[2][x] ^ state[3][x] ^ state[4][x];
         }
         for (std::size_t x = 0; x < 5; ++x)
         {
-            std::uint64_t v = BCD[0][(x + 4) % 5] ^ keccak_rotl(BCD[0][(x + 1) % 5], 1);
+            std::uint64_t v = bcd[0][(x + 4) % 5] ^ keccak_rotl(bcd[0][(x + 1) % 5], 1);
             for (std::size_t y = 0; y < 5; ++y)
             {
                 state[y][x] ^= v;
@@ -95,7 +95,7 @@ namespace
         {
             for (std::size_t y = 0; y < 5; ++y)
             {
-                BCD[((2 * x) + (3 * y)) % 5][y] = keccak_rotl(state[y][x], keccak_rot[x][y]);
+                bcd[((2 * x) + (3 * y)) % 5][y] = keccak_rotl(state[y][x], keccak_rot[x][y]);
             }
         }
         /* chi */
@@ -103,24 +103,24 @@ namespace
         {
             for (std::size_t y = 0; y < 5; ++y)
             {
-                state[y][x] = BCD[y][x] ^ ((~BCD[y][(x + 1) % 5] & BCD[y][(x + 2) % 5]));
+                state[y][x] = bcd[y][x] ^ ((~bcd[y][(x + 1) % 5] & bcd[y][(x + 2) % 5]));
             }
         }
         /* iota */
-        state[0][0] ^= RC;
+        state[0][0] ^= rc;
     }
 #else
-    void keccak_round(std::uint64_t state[5][5], std::uint64_t RC)
+    void keccak_round(std::uint64_t state[5][5], std::uint64_t rc)
     {
-        std::uint64_t BCD[5][5];
+        std::uint64_t bcd[5][5];
         /* theta */
         for (std::size_t x = 0; x < 5; ++x)
         {
-            BCD[x][0] = state[x][0] ^ state[x][1] ^ state[x][2] ^ state[x][3] ^ state[x][4];
+            bcd[x][0] = state[x][0] ^ state[x][1] ^ state[x][2] ^ state[x][3] ^ state[x][4];
         }
         for (std::size_t x = 0; x < 5; ++x)
         {
-            std::uint64_t v = BCD[(x + 4) % 5][0] ^ keccak_rotl(BCD[(x + 1) % 5][0], 1);
+            std::uint64_t v = bcd[(x + 4) % 5][0] ^ keccak_rotl(bcd[(x + 1) % 5][0], 1);
             for (std::size_t y = 0; y < 5; ++y)
             {
                 state[x][y] ^= v;
@@ -131,7 +131,7 @@ namespace
         {
             for (std::size_t y = 0; y < 5; ++y)
             {
-                BCD[y][((2 * x) + (3 * y)) % 5] = keccak_rotl(state[x][y], keccak_rot[x][y]);
+                bcd[y][((2 * x) + (3 * y)) % 5] = keccak_rotl(state[x][y], keccak_rot[x][y]);
             }
         }
         /* chi */
@@ -139,11 +139,11 @@ namespace
         {
             for (std::size_t y = 0; y < 5; ++y)
             {
-                state[x][y] = BCD[x][y] ^ ((~BCD[(x + 1) % 5][y] & BCD[(x + 2) % 5][y]));
+                state[x][y] = bcd[x][y] ^ ((~bcd[(x + 1) % 5][y] & bcd[(x + 2) % 5][y]));
             }
         }
         /* iota */
-        state[0][0] ^= RC;
+        state[0][0] ^= rc;
     }
 #endif
 
