@@ -36,11 +36,11 @@ namespace
 
     std::uint8_t const keccak_rot[5][5] =
     {
-        {0, 36, 3, 41, 18},
-        {1, 44, 10, 45, 2},
-        {62, 6, 43, 15, 61},
+        { 0, 36,  3, 41, 18},
+        { 1, 44, 10, 45,  2},
+        {62,  6, 43, 15, 61},
         {28, 55, 25, 21, 56},
-        {27, 20, 39, 8, 14}
+        {27, 20, 39,  8, 14}
     };
 
     std::uint64_t rotl(std::uint64_t x, std::uint64_t y)
@@ -108,9 +108,9 @@ namespace
             block = (5 * 5 * 8) - (2 * size);
         }
 
-        void append(std::uint8_t const *input, std::size_t size)
+        void append(std::uint8_t const * input, std::size_t size)
         {
-            auto *s = reinterpret_cast<std::uint8_t *>(state);
+            auto * s = reinterpret_cast<std::uint8_t *>(state);
 
             for (std::uint32_t i = 0; i < size; i++)
             {
@@ -123,9 +123,9 @@ namespace
             }
         }
 
-        void end(std::uint8_t *output)
+        void end(std::uint8_t * output)
         {
-            std::uint8_t *s = reinterpret_cast<std::uint8_t *>(state);
+            auto * s = reinterpret_cast<std::uint8_t *>(state);
             s[index] ^= 0x06;
             s[block - 1] ^= 0x80;
             keccak_f();
@@ -133,7 +133,7 @@ namespace
         }
     };
 
-    void sha3_x(void const *data, std::size_t data_size, void *digest, std::size_t digest_size)
+    void sha3_x(void const * data, std::size_t data_size, void * digest, std::size_t digest_size)
     {
         sha3 sha;
         sha.begin(digest_size);
@@ -142,17 +142,17 @@ namespace
     }
 }
 
-void sha3_224(void const *data, std::size_t size, void *digest)
+void sha3_224(void const * data, std::size_t size, void * digest)
 {
     sha3_x(data, size, digest, 28);
 }
 
-void sha3_256(void const *data, std::size_t size, void *digest)
+void sha3_256(void const * data, std::size_t size, void * digest)
 {
     sha3_x(data, size, digest, 32);
 }
 
-void sha3_512(void const *data, std::size_t size, void *digest)
+void sha3_512(void const * data, std::size_t size, void * digest)
 {
     sha3_x(data, size, digest, 64);
 }
