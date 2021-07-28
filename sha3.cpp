@@ -144,15 +144,15 @@ namespace
 
 void sha3_224(void const * data, std::size_t size, void * digest)
 {
-    sha3_x(data, size, digest, 28);
+    sha3_x(data, size, digest, SHA3_224_DIGEST_SIZE);
 }
 
 void sha3_256(void const * data, std::size_t size, void * digest)
 {
-    sha3_x(data, size, digest, 32);
+    sha3_x(data, size, digest, SHA3_256_DIGEST_SIZE);
 }
 
 void sha3_512(void const * data, std::size_t size, void * digest)
 {
-    sha3_x(data, size, digest, 64);
+    sha3_x(data, size, digest, SHA3_512_DIGEST_SIZE);
 }
