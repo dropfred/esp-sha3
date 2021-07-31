@@ -50,14 +50,16 @@ namespace
 
     class sha3
     {
+        using State = std::uint64_t[5][5];
+
         std::size_t digest;
         std::size_t block;
         std::uint64_t index;
-        std::uint64_t state[5][5];
+        State state;
 
         void keccak_round(std::uint64_t r)
         {
-            std::uint64_t bcd[5][5];
+            State bcd;
             /* theta */
             for (std::size_t x = 0; x < 5; ++x)
             {
@@ -102,7 +104,7 @@ namespace
     public:
         void begin(std::size_t size)
         {
-            std::memset(state, 0, 5 * 5 * 8);
+            std::memset(state, 0, sizeof (State));
             index = 0;
             digest = size;
             block = (5 * 5 * 8) - (2 * size);
