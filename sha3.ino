@@ -19,36 +19,32 @@ namespace
 
 void setup()
 {
-  Serial.begin(115200);
-  Serial.println("SHA3");
+	Serial.begin(115200); while (!Serial);
 }
 
 void loop() {
 	std::uint8_t digest[SHA3_256_DIGEST_SIZE];
-	char data[1000];
-	std::uint32_t size = 0;
 	char hash[SHA3_256_DIGEST_SIZE * 2 + 1];
-	
+	String data;
+
 	while (true)
 	{
 		if (Serial.available() > 0)
 		{
 			char c = Serial.read();
 			if (c == '\n') break;
-			data[size++] = c;
-			if (size == 999) break;
+			data += c;
 		}
 		else
 		{
 			delay(10);
 		}
-	}
-	data[size] = 0;
-	
-	auto t0 = micros();
-	sha3_256(data, size, digest);
-	auto t1 = micros();
+	}	
+
+	auto dt = micros();
+	sha3_256(data.c_str(), data.length(), digest);
+	dt = micros() - dt;
 	
 	hex(digest, hash, SHA3_256_DIGEST_SIZE);
-	Serial.print("sha3-256("); Serial.print(data); Serial.print(") : "); Serial.print(hash); Serial.print(" ("); Serial.print(t1 - t0); Serial.println(" us)");
+	Serial.print("sha3-256("); Serial.print(data); Serial.print(") : "); Serial.print(hash); Serial.print(" ("); Serial.print(dt); Serial.println(" us)");
 }
