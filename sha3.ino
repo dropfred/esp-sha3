@@ -26,7 +26,7 @@ void loop()
 {
 	std::uint8_t digest[SHA3_256_DIGEST_SIZE];
 	char hash[SHA3_256_DIGEST_SIZE * 2 + 1];
-	String data;
+	String txt;
 
 	while (true)
 	{
@@ -42,10 +42,13 @@ void loop()
 		}
 	}	
 
+	auto const * data = txt.c_str();
+	auto size = txt.length();
+	
 	auto dt = micros();
-	sha3_256(data.c_str(), data.length(), digest);
+	sha3_256(data, size, digest);
 	dt = micros() - dt;
 	
 	hex(digest, hash, SHA3_256_DIGEST_SIZE);
-	Serial.print("sha3-256("); Serial.print(data); Serial.print(") : "); Serial.print(hash); Serial.print(" ("); Serial.print(dt); Serial.println(" us)");
+	Serial.print("sha3-256("); Serial.print(txt); Serial.print(") : "); Serial.print(hash); Serial.print(" ("); Serial.print(dt); Serial.println(" us)");
 }
