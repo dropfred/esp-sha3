@@ -7,7 +7,7 @@ namespace
 		static char const H[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 		auto * s = static_cast<std::uint8_t const *>(src);
 		auto * d = dst;
-		for (auto i = size; i > 0; --i, ++s)
+		for (auto i = size; i != 0; --i, ++s)
 		{
 			auto v = *s;
 			*(d++) = H[v >> 4];
