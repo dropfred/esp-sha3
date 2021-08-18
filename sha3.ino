@@ -34,7 +34,7 @@ void loop()
 		{
 			char c = Serial.read();
 			if (c == '\n') break;
-			data += c;
+			txt += c;
 		}
 		else
 		{
