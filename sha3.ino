@@ -22,7 +22,8 @@ void setup()
 	Serial.begin(115200); while (!Serial);
 }
 
-void loop() {
+void loop()
+{
 	std::uint8_t digest[SHA3_256_DIGEST_SIZE];
 	char hash[SHA3_256_DIGEST_SIZE * 2 + 1];
 	String data;
