@@ -54,7 +54,7 @@ namespace
 
         std::size_t digest;
         std::size_t block;
-        std::uint64_t index;
+        std::size_t index;
         State state;
 
         void keccak_round(std::uint64_t r)
@@ -107,7 +107,7 @@ namespace
             std::memset(state, 0, sizeof (State));
             index = 0;
             digest = size;
-            block = (5 * 5 * 8) - (2 * size);
+            block = sizeof (State) - (2 * size);
         }
 
         void append(std::uint8_t const * input, std::size_t size)
