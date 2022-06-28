@@ -45,7 +45,7 @@ namespace
 
     std::uint64_t rotl(std::uint64_t x, std::uint64_t y)
     {
-        return ((x << y) | (x >> (64 - y)));
+        return (y > 0) ? ((x << y) | (x >> (64 - y))) : x;
     }
 
     class sha3
