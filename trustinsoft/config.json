@@ -1,0 +1,32 @@
+{
+    "common": {
+        "val": true,
+
+        "variables": {
+            "TEST_SIZE": "200"
+        },
+
+        "language": "c++",
+        "cxx-runtime": false,
+        "cxx-cpp-extra-args": "-I . -D TEST_SIZE=${TEST_SIZE}",
+
+        "prefix_path": "..",
+        "default-fs": false,
+
+        "files": [
+            "trustinsoft/tis.cpp",
+            "sha3.cpp"
+        ]
+    },
+    "analyses": [
+        {
+            "name": "sha3_1",
+            "val-profile": "interpreter"
+        },
+        {
+            "name": "sha3_2",
+            "val-profile": "analyzer",
+            "slevel": "${TEST_SIZE}"
+        }
+    ]    
+}
