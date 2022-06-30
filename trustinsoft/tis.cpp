@@ -1,8 +1,6 @@
 #include "sha3.h"
 
-// #include <cstddef>
 #include <cstdint>
-// #include <cstring>
 
 #ifdef TIS_INTERPRETER
 #include <cstdlib>
