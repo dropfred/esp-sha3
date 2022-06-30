@@ -13,12 +13,6 @@
 
 namespace
 {
-    // void test_0()
-    // {
-    //     std::uint8_t digest[SHA3_256_DIGEST_SIZE];
-    //     sha3_256(nullptr, 0, digest);
-    // }
-
 #ifdef TIS_INTERPRETER
 	void hex(void const * src, char * dst, std::size_t size)
 	{
