@@ -1,0 +1,28 @@
+[
+    {
+        "include": "config_base.json",
+        "name": "sha3_interpreter_32",
+        "val-profile": "interpreter",
+        "32": true
+    },
+    {
+        "include": "config_base.json",
+        "name": "sha3_interpreter_64",
+        "val-profile": "interpreter",
+        "64": true
+    },
+    {
+        "include": "config_base.json",
+        "name": "sha3_analyzer_32",
+        "val-profile": "analyzer",
+        "slevel": 1000,
+        "32": true
+    },
+    {
+        "include": "config_base.json",
+        "name": "sha3_analyzer_64",
+        "val-profile": "analyzer",
+        "slevel": 1000,
+        "64": true
+    }
+]

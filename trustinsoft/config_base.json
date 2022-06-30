@@ -1,0 +1,10 @@
+[
+    {
+        "files": [
+            "tis.cpp",
+            "../sha3.cpp"
+        ],
+        "cxx-cpp-extra-args": "-I .. -D TEST_SIZE=1000",
+        "val": true
+    }
+]
