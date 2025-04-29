@@ -139,8 +139,8 @@ namespace
     {
         sha3 sha;
         sha.begin(digest_size);
-        sha.append(reinterpret_cast<std::uint8_t const *>(data), data_size);
-        sha.end(reinterpret_cast<std::uint8_t *>(digest));
+        sha.append(static_cast<std::uint8_t const *>(data), data_size);
+        sha.end(static_cast<std::uint8_t *>(digest));
     }
 }
 
