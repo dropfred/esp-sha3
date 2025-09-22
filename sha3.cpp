@@ -45,7 +45,12 @@ namespace
 
     std::uint64_t rotl(std::uint64_t x, std::uint64_t y)
     {
+#ifdef ESP_SHA3_YOLO_UB_RSHIFT
+        // (x >> (64 - y)) is UB if y is null
+        return (x << y) | (x >> (64 - y));
+#else
         return (y != 0) ? ((x << y) | (x >> (64 - y))) : x;
+#endif
     }
 
     class sha3

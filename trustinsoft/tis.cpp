@@ -87,7 +87,6 @@ int main()
             hex(digest_224, hd, SHA3_224_DIGEST_SIZE);
             bool ok = std::strcmp(hd, t.hash) == 0;
             //@ assert ok;
-            ok = true;
         }
 
         for (auto const & t : test_256)
