@@ -45,7 +45,7 @@ namespace
 
     std::uint64_t rotl(std::uint64_t x, std::uint64_t y)
     {
-        return (y > 0) ? ((x << y) | (x >> (64 - y))) : x;
+        return (y != 0) ? ((x << y) | (x >> (64 - y))) : x;
     }
 
     class sha3
@@ -158,3 +158,4 @@ void sha3_512(void const * data, std::size_t size, void * digest)
 {
     sha3_x(data, size, digest, SHA3_512_DIGEST_SIZE);
 }
+
