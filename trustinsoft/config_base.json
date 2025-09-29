@@ -1,10 +1,22 @@
 [
     {
+        "variables": {
+            "TEST_SIZE": "1000"
+        },
+
+        "prefix_path": "..",
+
+        "default-fs": false,
+
+        "language": "c++",
+        "cxx-runtime": false,
+        "cxx-cpp-extra-args": "-I . -D TEST_SIZE=${TEST_SIZE}",
+
         "files": [
-            "tis.cpp",
-            "../sha3.cpp"
+            "trustinsoft/tis.cpp",
+            "sha3.cpp"
         ],
-        "cxx-cpp-extra-args": "-I .. -D TEST_SIZE=1000",
+
         "val": true
     }
 ]
