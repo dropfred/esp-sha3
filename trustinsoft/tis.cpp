@@ -3,14 +3,13 @@
 #include <cstdint>
 
 #ifdef TIS_INTERPRETER
-#include <cstdlib>
 #include <cstring>
 #else
-#include <tis_builtin.h>
+#include <trustinsoft/tis_helper.h>
 #endif
 
 #ifndef TEST_SIZE
-#define TEST_SIZE 1000
+#define TEST_SIZE 100
 #endif
 
 namespace
@@ -29,16 +28,6 @@ namespace
 		}
 		*d = 0;
 	}
-
-    void make_rand(void * data, std::size_t size)
-    {
-        std::uint8_t * p = static_cast<std::uint8_t *>(data);
-        while (size > 0)
-        {
-            *p++ = std::uint8_t(std::rand());
-            --size;
-        }
-    }
 #endif
 }
 
@@ -107,29 +96,25 @@ int main()
             //@ assert ok;
         }
     }
-    {
-        char data[TEST_SIZE];
-        make_rand(data, sizeof data);
-        sha3_224(data, sizeof data, digest_224);
-        sha3_256(data, sizeof data, digest_256);
-        sha3_512(data, sizeof data, digest_512);
-    }
 #else
     {
         char data[TEST_SIZE];
         tis_make_unknown(data, sizeof data);
 
+        #define TEST __LINE__
+        #define SHA3(S) do { \
+            std::uint8_t digest[SHA3_##S##_DIGEST_SIZE]; \
+            sha3_##S(data, tis_unsigned_int_interval(0,  sizeof data), digest); \
+        } while (false)
+
+        while (tis_unknown_b())
         {
-            std::uint8_t digest[SHA3_224_DIGEST_SIZE];
-            sha3_224(data, sizeof data, digest);
-        }
-        {
-            std::uint8_t digest[SHA3_256_DIGEST_SIZE];
-            sha3_256(data, sizeof data, digest);
-        }
-        {
-            std::uint8_t digest[SHA3_512_DIGEST_SIZE];
-            sha3_512(data, sizeof data, digest);
+            switch (tis_unknown_si())
+            {
+            case TEST: SHA3(224); break;
+            case TEST: SHA3(256); break;
+            case TEST: SHA3(512); break;
+            }
         }
     }
 #endif
