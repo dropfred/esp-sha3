@@ -20,12 +20,7 @@
     },
     "analyses": [
         {
-            "name": "sha3_1",
-            "val-profile": "interpreter"
-        },
-        {
-            "name": "sha3_2",
-            "val-profile": "analyzer",
+            "name": "sha3",
             "slevel": "${TEST_SIZE}"
         }
     ]    
